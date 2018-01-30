@@ -1,8 +1,7 @@
 (defun my-os-debug ()
   "Debug my-os by simply typing this command."
   (interactive)
-  (let* (;;(wd "/home/alchemist/git/my-os")
-	 (wd working-dir) ;; Uses the variable defined in .dir-locals.el
+  (let* ((wd working-dir) ;; Uses the variable defined in .dir-locals.el
 	 (arch "x86_64")
 	 (kernel (concat wd "/build/kernel-" arch ".bin"))
 	 (iso (concat wd "/build/os-" arch ".iso")))
