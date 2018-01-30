@@ -19,7 +19,7 @@ mod memory;
 
 use memory::FrameAllocator;
 
-// Next: https://os.phil-opp.com/page-tables/
+// Next: https://os.phil-opp.com/remap-the-kernel/
 // https://www.gnu.org/software/emacs/manual/html_node/emacs/Commands-of-GUD.html
 
 #[no_mangle]
