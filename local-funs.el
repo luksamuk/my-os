@@ -3,8 +3,8 @@
   (interactive)
   (let* ((wd working-dir) ;; Uses the variable defined in .dir-locals.el
 	 (arch "x86_64")
-	 (kernel (concat wd "/build/kernel-" arch ".bin"))
-	 (iso (concat wd "/build/os-" arch ".iso")))
+	 (kernel (concat wd "build/kernel-" arch ".bin"))
+	 (iso (concat wd "build/os-" arch ".iso")))
     ;; GDB defaults
     (setq gdb-many-windows t)
     (setq gdb-show-main t)
