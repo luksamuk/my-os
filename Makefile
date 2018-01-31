@@ -18,10 +18,10 @@ clean:
 	@rm -r build
 
 run: $(iso)
-	@qemu-system-x86_64 -cdrom $(iso) -s > /dev/null 2>&1
+	@qemu-system-x86_64 -d int -no-reboot -cdrom $(iso) -s
 
 debug: $(iso)
-	@qemu-system-x86_64 -cdrom $(iso) -s -S > /dev/null 2>&1 &
+	@qemu-system-x86_64 -d int -no-reboot -cdrom $(iso) -s -S > /dev/null 2>&1 &
 	@gdb "$(kernel)" -ex "target remote :1234"
 
 iso: $(iso)

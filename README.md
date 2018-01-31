@@ -19,3 +19,7 @@ To compile, you'll need the following dependencies:
 If you're using Emacs, I've included some scripts, so you can use `M-x my-os-debug` to debug directly on Emacs with GDB/GUD. You probably don't need to, but you can edit the `.dir-locals.el` and `local-funs.el` files to adjust to your system.
 
 The [original code](https://github.com/phil-opp/blog_os) has a dual license option, being MIT or Apache2, but I'm gonna keep things simple and add an MIT License to this repository. For now, there is little to no difference between what I am doing here and the code on the original author's repository, so you can either check what I did here or read everything on Philipp Oppermann's blog linked above, which I recommend much more than mine.
+
+Extra notes
+-----------
+1. I renamed `enable_nxe_bit` to `enable_nx_bit`, since the bit is called "the NX bit". I may be wrong, though, but I'll need to read more to figure it out.

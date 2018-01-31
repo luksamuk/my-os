@@ -168,7 +168,7 @@ pub fn clear_screen() {
 
 
 
-/*#[test]
+// TEST
 pub fn print_something() {
     let mut writer = Writer {
         column_position: 0,
@@ -180,4 +180,4 @@ pub fn print_something() {
     //writer.write_byte(b'H');
     //writer.write_str("Hello, world!");
     write!(writer, "The numbers are {} and {}", 42, 1.0/3.0);
-}*/
+}

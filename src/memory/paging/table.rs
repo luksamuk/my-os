@@ -113,8 +113,9 @@ pub const P4: *mut Table<Level4> = 0xffffffff_fffff000 as *mut _;
 
 
 
-/*#[test]
-fn test() {
+// TEST
+// NOTE: IT FAILS AT COMPILE TIME!
+/*pub fn test_tables() {
     let p4 = unsafe { &*P4 };
     // The following addresses are mostly invalid,
     // but hopefully this fails at compile time,

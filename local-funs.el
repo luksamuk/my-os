@@ -9,7 +9,11 @@
     (setq gdb-many-windows t)
     (setq gdb-show-main t)
     ;; First we start qemu
-    (start-process "qemu" nil
-		   "qemu-system-x86_64" "-cdrom" iso "-s" "-S")
+    (start-process "qemu" "*qemu*"
+		   "qemu-system-x86_64"
+		   "-d" "int"
+		   "-no-reboot"
+		   "-cdrom" iso
+		   "-s" "-S")
     ;; We then start gdb with the kernel image symbols, and we connect to qemu
     (gdb (concat "gdb " kernel " -ex \"target remote :1234\" -i=mi"))))
