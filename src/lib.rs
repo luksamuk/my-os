@@ -32,7 +32,7 @@ use memory::FrameAllocator;
 use linked_list_allocator::LockedHeap;
 
 // Next: https://os.phil-opp.com/handling-exceptions/
-m// https://www.gnu.org/software/emacs/manual/html_node/emacs/Commands-of-GUD.html
+// https://www.gnu.org/software/emacs/manual/html_node/emacs/Commands-of-GUD.html
 
 
 // Global allocator
