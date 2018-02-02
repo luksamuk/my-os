@@ -17,9 +17,12 @@ To compile, you'll need the following dependencies:
 - Optionally `Emacs`, which is my main editor.
 
 If you're using Emacs, I've included some scripts, so you can use `M-x my-os-debug` to debug directly on Emacs with GDB/GUD. You probably don't need to, but you can edit the `.dir-locals.el` and `local-funs.el` files to adjust to your system.
+You can also call `my-os-backtrace` and input the faulty line on Emacs' minibuffer, so you can analize the output of the kernel's `objdump`, from the faulty line backwards, counting until 200 previous lines. This might come in handy when facing a fault that causes an immediate machine halt or reboot loop.
 
 The [original code](https://github.com/phil-opp/blog_os) has a dual license option, being MIT or Apache2, but I'm gonna keep things simple and add an MIT License to this repository. For now, there is little to no difference between what I am doing here and the code on the original author's repository, so you can either check what I did here or read everything on Philipp Oppermann's blog linked above, which I recommend much more than mine.
 
 Extra notes
 -----------
 1. I renamed `enable_nxe_bit` to `enable_nx_bit`, since the bit is called "the NX bit". I may be wrong, though, but I'll need to read more to figure it out.
+2. On `memory::init`, I got confused at a certain part and managed to calculate the multiboot end manually, like it was being done at `rust_main`. But it's no big deal.
+3. The [`linked_list_allocator` crate](https://github.com/phil-opp/linked-list-allocator) has a bug which requires the feature `ptr_internals` in newer versions of Rust. I'll send a pull request later, but I might also fork it and use as submodule to avoid getting stuff from crates.io.
