@@ -1,6 +1,8 @@
 my-os
 =======
 
+**WARNING: This project can only be built under Rust nightly. Switch to the nightly toolchain by using `rustup default nightly`. Remember that you got to have the nightly toolchain installed as well.**
+
 Operational system written in Rust.
 Everything was coded on a Void Linux system under the x86\_64 architecture, so don't expect it to work on other kinds of systems.
 

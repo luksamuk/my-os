@@ -7,6 +7,7 @@
 #![feature(allocator_api)]
 #![feature(const_atomic_usize_new)]
 #![feature(global_allocator)]
+#![feature(abi_x86_interrupt)]
 #![no_std]
 
 extern crate rlibc;
@@ -21,10 +22,13 @@ extern crate alloc;
 #[macro_use]
 extern crate once;
 extern crate linked_list_allocator;
+#[macro_use]
+extern crate lazy_static;
 
 #[macro_use]
 mod vga_buffer;
 mod memory;
+mod interrupts;
 
 use memory::FrameAllocator;
 //use memory::BumpAllocator;
@@ -53,17 +57,28 @@ pub extern fn rust_main(multiboot_information_address: usize) {
     vga_buffer::clear_screen();
     println!("Initializing operational system.");
 
+    // Security and boot related
     let boot_info = unsafe {
         multiboot2::load(multiboot_information_address)
     };
     enable_nx_bit();
     enable_write_protect_bit();
 
+    // Initialize memory
     memory::init(boot_info);
     unsafe {
         HEAP_ALLOCATOR.lock()
             .init(HEAP_START, HEAP_START + HEAP_SIZE);
     }
+
+    // Initialize interrupt handling
+    interrupts::init();
+
+
+    // Breakpoint exception
+    //x86_64::instructions::interrupts::int3();
+
+    
     
     use alloc::boxed::Box;
     let mut heap_test = Box::new(42);
