@@ -24,6 +24,7 @@ extern crate once;
 extern crate linked_list_allocator;
 #[macro_use]
 extern crate lazy_static;
+extern crate bit_field;
 
 #[macro_use]
 mod vga_buffer;
@@ -35,8 +36,7 @@ use memory::FrameAllocator;
 
 use linked_list_allocator::LockedHeap;
 
-// Next: https://os.phil-opp.com/handling-exceptions/
-// https://www.gnu.org/software/emacs/manual/html_node/emacs/Commands-of-GUD.html
+// Next: https://os.phil-opp.com/double-faults/  -- Halted! Awaiting new post!
 
 
 // Global allocator
@@ -65,18 +65,31 @@ pub extern fn rust_main(multiboot_information_address: usize) {
     enable_write_protect_bit();
 
     // Initialize memory
-    memory::init(boot_info);
+    let mut memory_controller = memory::init(boot_info);
+    
     unsafe {
         HEAP_ALLOCATOR.lock()
             .init(HEAP_START, HEAP_START + HEAP_SIZE);
     }
 
     // Initialize interrupt handling
-    interrupts::init();
+    interrupts::init(&mut memory_controller);
 
 
     // Breakpoint exception
     //x86_64::instructions::interrupts::int3();
+
+    // Triggering a double fault on purpose
+    //unsafe {
+    //    *(0xdeadbeaf as *mut u64) = 42;
+    //}
+
+
+    // Triggering a stack overflow on purpose
+    fn stack_overflow() {
+        stack_overflow();
+    }
+    stack_overflow();
 
     
     
