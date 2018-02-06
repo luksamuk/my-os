@@ -74,58 +74,42 @@ pub extern fn rust_main(multiboot_information_address: usize) {
     interrupts::init(&mut memory_controller);
 
 
-    // Breakpoint exception
-    //x86_64::instructions::interrupts::int3();
-
-    // Triggering a double fault on purpose
-    //unsafe {
-    //    *(0xdeadbeaf as *mut u64) = 42;
-    //}
-
-
-    // Triggering a stack overflow on purpose
-    /*fn stack_overflow() {
-        stack_overflow();
-    }
-    stack_overflow();*/
-
-    
-    
-    use alloc::boxed::Box;
-    let mut heap_test = Box::new(42);
-    *heap_test -= 15;
-    let heap_test2 = Box::new("hello");
-    println!("{:?} {:?}", heap_test, heap_test2);
-
-    let mut vec_test = vec![1, 2, 3, 4, 5, 6, 7];
-    vec_test[3] = 42;
-    for i in &vec_test {
-        print!("{} ", i);
-    }
-
     println!("\nTesting heap allocation");
     println!("WARNING: We have very small stack and heap");
 
-    {
-        println!("Allocating vector to hold test strings..");
-        let mut string_vector = alloc::Vec::new();
-        const NUM_ITERATIONS: usize = 1000;
-        for i in 0..NUM_ITERATIONS {
-            if i % 50 == 0 {
-                println!("Allocating string {} out of {}...", i, NUM_ITERATIONS);
-            }
-            string_vector.push(format!("Some string"));
+    {   
+        // Boxed values
+        println!("Boxed value test");
+        {
+            use alloc::boxed::Box;
+            
+            let mut heap_test = Box::new(42);
+            *heap_test -= 15;
+            let _heap_test2 = Box::new("hello"); 
         }
-        println!("Destroying vector holding {} strings...", string_vector.len());
+
+        // Basic vectors
+        println!("Basic dynamic vector test");
+        {
+            let mut vec_test = vec![1, 2, 3, 4, 5, 6, 7];
+            vec_test[3] = 42;
+        }
+        
+        // Heavy allocation
+        const NUM_ITERATIONS: usize = 15000;
+        const NUM_TESTS: usize = 10;
+        for i in 0..NUM_TESTS {
+            println!("Heavy allocation {}/{} test with {} iterations",
+                     i + 1, NUM_TESTS, NUM_ITERATIONS);
+            let mut string_vector = alloc::Vec::new();
+            for _ in 0..NUM_ITERATIONS {
+                string_vector.push(format!("Some string"));
+            }
+        }
     }
 
     println!("Operating system did not crash in any way! Congratulations!");
 
-
-    // Here we test some features.
-    //vga_buffer::print_something();
-    //memory::test_paging(&mut frame_allocator);
-    // also try uncommenting memory::paging::test_tables
 
     println!("\nEverything gone smoothly. System will now purposely hang.");
 
