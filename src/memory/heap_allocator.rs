@@ -38,7 +38,7 @@ unsafe impl<'a> Alloc for &'a BumpAllocator {
         }
     }
 
-    unsafe fn dealloc(&mut self, ptr: *mut u8, layout: Layout) {
+    unsafe fn dealloc(&mut self, _ptr: *mut u8, _layout: Layout) {
         // Do nothing. Leak memory! It's not like you need it, right???
     }
 }

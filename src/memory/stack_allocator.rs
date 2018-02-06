@@ -72,6 +72,8 @@ impl Stack {
         self.top
     }
 
+    // This method wasn't used until now
+    #[allow(dead_code)]
     pub fn bottom(&self) -> usize {
         self.bottom
     }

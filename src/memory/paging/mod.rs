@@ -1,4 +1,3 @@
-use core::ptr::Unique;
 use memory::{PAGE_SIZE, Frame, FrameAllocator};
 use core::ops::{Deref, DerefMut};
 use multiboot2::BootInformation;
@@ -9,7 +8,6 @@ mod table;
 mod temporary_page;
 mod mapper;
 
-use self::table::{P4, Table, Level4};
 use self::temporary_page::TemporaryPage;
 use self::mapper::Mapper;
 

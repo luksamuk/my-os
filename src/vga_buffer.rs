@@ -169,7 +169,7 @@ pub fn clear_screen() {
 
 
 // TEST
-pub fn print_something() {
+/*pub fn print_something() {
     let mut writer = Writer {
         column_position: 0,
         color_code: ColorCode::new(Color::LightGreen, Color::Black),
@@ -179,5 +179,5 @@ pub fn print_something() {
     use core::fmt::Write;
     //writer.write_byte(b'H');
     //writer.write_str("Hello, world!");
-    write!(writer, "The numbers are {} and {}", 42, 1.0/3.0);
-}
+    let _ = write!(writer, "The numbers are {} and {}", 42, 1.0/3.0);
+}*/

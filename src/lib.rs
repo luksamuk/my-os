@@ -31,9 +31,7 @@ mod vga_buffer;
 mod memory;
 mod interrupts;
 
-use memory::FrameAllocator;
 //use memory::BumpAllocator;
-
 use linked_list_allocator::LockedHeap;
 
 // Next: https://os.phil-opp.com/double-faults/  -- Halted! Awaiting new post!
@@ -53,7 +51,6 @@ static HEAP_ALLOCATOR: LockedHeap = LockedHeap::empty();
 
 #[no_mangle]
 pub extern fn rust_main(multiboot_information_address: usize) {
-    // ATTENTION: we have a very small stack and no guard page
     vga_buffer::clear_screen();
     println!("Initializing operational system.");
 
@@ -86,10 +83,10 @@ pub extern fn rust_main(multiboot_information_address: usize) {
 
 
     // Triggering a stack overflow on purpose
-    fn stack_overflow() {
+    /*fn stack_overflow() {
         stack_overflow();
     }
-    stack_overflow();
+    stack_overflow();*/
 
     
     
@@ -106,18 +103,30 @@ pub extern fn rust_main(multiboot_information_address: usize) {
     }
 
     println!("\nTesting heap allocation");
+    println!("WARNING: We have very small stack and heap");
 
-    for _ in 0..10000 {
-        format!("Some string");
+    {
+        println!("Allocating vector to hold test strings..");
+        let mut string_vector = alloc::Vec::new();
+        const NUM_ITERATIONS: usize = 200;
+        for i in 0..NUM_ITERATIONS {
+            if i % 50 == 0 {
+                println!("Allocating string {} out of {}...", i, NUM_ITERATIONS);
+            }
+            string_vector.push(format!("Some string"));
+        }
+        println!("Destroying vector holding {} strings...", string_vector.len());
     }
 
-    println!("Well well well, looks like it didn't crash.");
+    println!("Operating system did not crash in any way! Congratulations!");
 
 
     // Here we test some features.
     //vga_buffer::print_something();
     //memory::test_paging(&mut frame_allocator);
     // also try uncommenting memory::paging::test_tables
+
+    println!("\nEverything gone smoothly. System will now purposely hang.");
 
     // Loop forever
     loop {}
