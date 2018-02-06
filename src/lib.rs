@@ -39,7 +39,8 @@ use linked_list_allocator::LockedHeap;
 
 // Global allocator
 pub const HEAP_START: usize = 0o_000_001_000_000_0000;
-pub const HEAP_SIZE: usize = 100 * 1024; // 100KiB
+//pub const HEAP_SIZE: usize = 100 * 1024; // 100KB
+pub const HEAP_SIZE: usize = 1000 * 1024; // 1MB
 
 //#[global_allocator]
 //static HEAP_ALLOCATOR: BumpAllocator = BumpAllocator::new(HEAP_START, HEAP_START + HEAP_SIZE);
@@ -108,7 +109,7 @@ pub extern fn rust_main(multiboot_information_address: usize) {
     {
         println!("Allocating vector to hold test strings..");
         let mut string_vector = alloc::Vec::new();
-        const NUM_ITERATIONS: usize = 200;
+        const NUM_ITERATIONS: usize = 1000;
         for i in 0..NUM_ITERATIONS {
             if i % 50 == 0 {
                 println!("Allocating string {} out of {}...", i, NUM_ITERATIONS);
