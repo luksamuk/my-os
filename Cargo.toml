@@ -8,14 +8,14 @@ crate-type = ["staticlib"]
 
 [dependencies]
 rlibc = "1.0"
-volatile = "0.2.3"
-spin = "0.4.6"
+volatile = "0.4.3"
+spin = "0.7.0"
 multiboot2 = "0.3.2"
-bitflags = "1.0"
-x86_64 = "0.1.2"
-once = "0.3.3"
-linked_list_allocator = "0.4.2"
-bit_field = "0.9.0"
+bitflags = "1.2.1"
+x86_64 = "0.13.1"
+once = "0.3.4"
+linked_list_allocator = "0.8.10"
+bit_field = "0.10.1"
 
 [dependencies.lazy_static]
 version = "1.0.0"
